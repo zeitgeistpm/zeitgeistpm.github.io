@@ -1,16 +1,25 @@
-document.addEventListener('DOMContentLoaded', domCntLoaded, false);
 document.addEventListener("click", eventDocClick, false);
-window.addEventListener("orientationchange", function () { fnDelay(function () { WindowRotationEvent() }, 300) }, false);
-window.addEventListener("resize", function () { fnDelay(function () { WindowResizeEvent() }, 300) }, false);
+window.addEventListener("load", WindowLoad, false);
 
-function WindowResizeEvent() {
-	// body...
-}
-function WindowRotationEvent() {
-
-}
-function domCntLoaded() {
-
+function WindowLoad() {
+	if(window.innerWidth >= 1200) {
+		var r;
+		if(r = document.querySelector(".headerPage__wrapImg .rellax")) {
+			var itr = 0;
+			var interval = setInterval(function () {
+				itr++;
+				if(r.clientHeight) {
+					clearInterval(interval);
+					loadJS('https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js', callRellax, document.body);
+					r.classList.add("active");
+				}
+				if(itr >= 10) {
+					clearInterval(interval);
+					r.classList.add("active");
+				}
+			}, 300);
+		}
+	}
 }
 function eventDocClick(e) {
     var targ = e.target;
@@ -45,7 +54,21 @@ var fnDelay = function () {
         timer = setTimeout(callback, ms);
     };
 }();
+var loadJS = function(url, callback, locToInsert){
+    var scriptTag = document.createElement('script');
+    scriptTag.src = url;
 
+    scriptTag.onload = callback;
+    scriptTag.onreadystatechange = callback;
+
+    locToInsert.appendChild(scriptTag);
+};
+var callRellax = function(){
+	var rellax = new Rellax('.rellax', {
+		center: true,
+		zIndex:-1
+	});
+}
 AOS.init({
 	/*disable: function () {
 		var maxWidth = 1024;
@@ -57,98 +80,3 @@ AOS.init({
 	// delay: 100,
 	// once: true
 });
-
-var rellax = new Rellax('.rellax', {
-	center: true,
-	zIndex:-1
-});
-/*var rellax = new Rellax('.rellax-index-1', {
-	center: true,
-	min: 0,
-	max: 200,
-	horizontal: false, vertical: true
-});*/
-
-function getMQ(query, size) {
-    // query, size - опциональные аргументы (работают только в паре)
-
-    var mq = "";
-
-    if (query) {
-        mq = false;
-        if (query == "min-width") {
-            if (size == "xs" && Modernizr.mq("(min-width: 320px)")) {
-                mq = true;
-            }
-            else if (size == "sm" && Modernizr.mq("(min-width: 576px)")) {
-                mq = true;
-            }
-            else if (size == "md" && Modernizr.mq("(min-width: 768px)")) {
-                mq = true;
-            }
-            else if (size == "lg" && Modernizr.mq("(min-width: 992px)")) {
-                mq = true;
-            }
-            else if (size == "xl" && Modernizr.mq("(min-width: 1200px)")) {
-                mq = true;
-            }
-            else if (size == "xxl" && Modernizr.mq("(min-width: 1400px)")) {
-                mq = true;
-            }
-            else if (size == "3xl" && Modernizr.mq("(min-width: 1600px)")) {
-                mq = true;
-            }
-            else if (size == "4xl" && Modernizr.mq("(min-width: 1880px)")) {
-                mq = true;
-            }
-        }
-        else if (query == "max-width") {
-            if (size == "sm" && Modernizr.mq("(max-width: 575px)")) {
-                mq = true;
-            }
-            else if (size == "md" && Modernizr.mq("(max-width: 991px)")) {
-                mq = true;
-            }
-            else if (size == "lg" && Modernizr.mq("(max-width: 1199px)")) {
-                mq = true;
-            }
-            else if (size == "xl" && Modernizr.mq("(max-width: 1399px)")) {
-                mq = true;
-            }
-            else if (size == "xxl" && Modernizr.mq("(max-width: 1599px)")) {
-                mq = true;
-            }
-            else if (size == "3xl" && Modernizr.mq("(max-width: 1879px)")) {
-                mq = true;
-            }
-        }
-    }
-    else {
-        if (Modernizr.mq("(max-width: 575px)")) {
-            mq = "xs";
-        }
-        else if (Modernizr.mq("(min-width: 576px) and (max-width: 767px)")) {
-            mq = "sm";
-        }
-        else if (Modernizr.mq("(min-width: 768px) and (max-width: 991px)")) {
-            mq = "md";
-        }
-        else if (Modernizr.mq("(min-width: 992px) and (max-width: 1199px)")) {
-            mq = "lg";
-        }
-        else if (Modernizr.mq("(min-width: 1200px) and (max-width: 1399px)")) {
-            mq = "xl";
-        }
-        else if (Modernizr.mq("(min-width: 1400px) and (max-width: 1599px)")) {
-            mq = "xxl";
-        }
-        else if (Modernizr.mq("(min-width: 1600px) and (max-width: 1879px)")) {
-            mq = "3xl";
-        }
-        else {
-            mq = "4xl";
-        }
-    }
-
-    return mq;
-}
