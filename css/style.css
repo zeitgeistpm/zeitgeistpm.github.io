@@ -4,6 +4,10 @@ html {
   font-size: 100%;
 }
 
+a:hover{
+  color: unset !important;
+}
+
 body {
   font-size: 16px;
   margin: 0;
