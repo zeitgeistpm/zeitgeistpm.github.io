@@ -386,32 +386,24 @@
             </div>
 
             <div class="banners">
-              <div class="banners__item">
-                <div class="banners__item__title">
-                  Zeitgeist’s Integration <br />
-                  With Subscan Goes Live
+              <a id="blog-1" class="banners__item">
+                <div id="blog-title-1" class="banners__item__title"></div>
+                <div class="banners__item__wrapImg">
+                  <img id="blog-img-1" class="banners__item__img" />
                 </div>
+              </a>
+              <a id="blog-2" class="banners__item">
+                <div id="blog-title-2" class="banners__item__title"></div>
                 <div class="banners__item__wrapImg">
                   <img
-                    class="banners__item__img"
-                    src="i/misc/about-banner-1.jpg"
-                  />
-                </div>
-              </div>
-              <div class="banners__item">
-                <div class="banners__item__title">
-                  Zeitgeist <br />Documentation
-                </div>
-                <div class="banners__item__wrapImg">
-                  <img
+                    id="blog-img-2"
                     class="banners__item__img"
                     src="i/misc/about-banner-2.jpg"
                   />
                 </div>
-              </div>
+              </a>
             </div>
             <script>
-              console.log("hello");
               const addPosts = async () => {
                 const response = await fetch(
                   "https://zeitgeist.ghost.io/ghost/api/content/posts/?key=4e24688c9460c91e66605218f3"
@@ -426,7 +418,25 @@
                   url: p.url,
                   imageUrl: p.feature_image,
                 }));
-                console.log(firstTwoPosts);
+
+                document.getElementById("blog-title-1").innerHTML =
+                  firstTwoPosts[0].title;
+                document.getElementById("blog-title-2").innerHTML =
+                  firstTwoPosts[1].title;
+
+                document
+                  .getElementById("blog-img-1")
+                  .setAttribute("src", firstTwoPosts[0].imageUrl);
+                document
+                  .getElementById("blog-img-2")
+                  .setAttribute("src", firstTwoPosts[1].imageUrl);
+
+                document
+                  .getElementById("blog-1")
+                  .setAttribute("href", firstTwoPosts[0].url);
+                document
+                  .getElementById("blog-2")
+                  .setAttribute("href", firstTwoPosts[1].url);
               };
               addPosts();
             </script>
