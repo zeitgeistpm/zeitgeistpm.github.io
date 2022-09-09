@@ -689,6 +689,7 @@ strong {
   display: flex;
   flex-wrap: wrap;
   min-width: 100%;
+  gap: 50px 0;
 }
 
 .circle {
