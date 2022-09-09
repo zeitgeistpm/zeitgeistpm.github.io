@@ -691,6 +691,10 @@ strong {
   min-width: 100%;
 }
 
+.circle {
+  border-radius: 1000px;
+}
+
 .partners {
   gap: 40px 0;
   display: flex;
