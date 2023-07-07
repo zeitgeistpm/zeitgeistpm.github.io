@@ -64,24 +64,28 @@
       <footer class="footerMain container-fluid">
         <div class="wrapperDefault">
           <div class="wrapperDefault-inner text-center">
-            <div>
+            <div id="form-container" class="mb-5 pb-4">
               <p>Enter your Email for our Bi-weekly ecosystem newsletter:</p>
-              <form class="form__landing footerMain__landing mb-5 pb-4" id="form">
+              <form class="form__landing footerMain__landing" id="form">
                 <input id="email" type="email" class="form-control__landing" aria-describedby="emailHelp" placeholder="Email" />
                 <button type="submit" class="btn-landing">Submit</button>
               </form>
+              <p id="form-message" class="pt-4" style="visibility: hidden;">&nbsp;</p>
             </div>
 
-              <script>
-                const form = document.getElementById("form")
-
-                form.addEventListener("submit", event => {
-                  event.preventDefault()
-                  const emailInput = document.getElementById("email")
-                  signUp(emailInput.value)
-                })
-
-                const signUp = async email => {
+            <script>
+              const form = document.getElementById("form");
+              const messageContainer = document.createElement('div');
+              const formMessage = document.getElementById("form-message");
+            
+              form.addEventListener("submit", event => {
+                event.preventDefault();
+                const emailInput = document.getElementById("email");
+                signUp(emailInput.value);
+              });
+            
+              const signUp = async email => {
+                try {
                   const response = await fetch("https://emails.zeitgeist.pm/landing-subscribe", {
                     method: "POST",
                     headers: {
@@ -89,9 +93,31 @@
                       "Content-Type": "application/json"
                     },
                     body: JSON.stringify({ email: email })
-                  })
+                  });
+            
+                  formMessage.innerText = '';
+                  formMessage.style = 'visibility: hidden;';
+            
+                  if (response.status === 201) {
+                    // if successful
+                    formMessage.innerText = 'Thanks! We will keep you posted twice a month with a short summary of Zeitgeist news.';
+                    formMessage.style = 'visibility: visible;';
+                  } else if (response.status === 204) {
+                    // if already subscribed
+                    formMessage.innerText = 'This email is already subscribed to our newsletter.';
+                    formMessage.style = 'visibility: visible;';
+                  } else  {
+                    formMessage.innerText = 'There was an error with your subscription. Please try again.';
+                    formMessage.style = 'visibility: visible;';
+                  }
+                  //if error
+                } catch (error) {
+                  formMessage.innerText = 'There was an error with your subscription. Please try again.';
+                  formMessage.style = 'visibility: visible;';
                 }
-              </script>
+              };
+            </script>
+            
             <span style="font-size:12px" class="text-center d-block">©&nbsp;<script>document.write(new Date().getFullYear())</script>
               &nbsp;Equipoise Corp.&nbsp;</div>
             </span>
