@@ -66,9 +66,6 @@ body.headerMainMenuActive {
   width: 100%;
 }
 
-.headerMain {
-  margin-bottom: 15px;
-}
 .headerMain-inner {
   position: relative;
   display: flex;
@@ -377,7 +374,6 @@ strong {
 
 .headerPage {
   margin-bottom: 20%;
-  padding-top: 119%;
   position: relative;
 }
 .headerPage__name {
@@ -413,8 +409,16 @@ strong {
   width: 100%;
 }
 .headerPage-index {
-  padding-top: 66%;
+  margin-top: 100px;
+  padding-top: 200px;
 }
+@media (min-width: 768px) {
+  .headerPage-index {
+    margin-top: 200px;
+    padding-top: 66%;
+  }
+}
+
 .headerPage__btn-group {
   margin-top: 11vh;
 }
@@ -487,12 +491,19 @@ strong {
   white-space: nowrap;
 }
 
+.main-menu {
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.66);
+  z-index: 99;
+}
+
 /* /Footer layout */
 .joinCommunity {
   background-color: #08131e;
   text-align: center;
-  margin-top: 130px;
-  padding: 40px 20px;
+  margin: 120px 0;
+  padding: 40px 40px;
 }
 .joinCommunity__title {
   font-family: "Space Grotesk";
@@ -1084,14 +1095,8 @@ strong {
   .btn:not(input) {
     width: 0;
   }
-  .headerMain {
-    margin-bottom: 60px;
-  }
   .headerMain-inner {
     min-height: 100px;
-  }
-  .headerMain-index {
-    margin-bottom: 30px;
   }
   .headerMain__menu {
     left: -60px;
@@ -1416,7 +1421,7 @@ strong {
     top: -80px;
   }
   .headerPage-index .headerPage__wrapImg {
-    top: -35px;
+    /* top: -35px; */
   }
   .section-index .section__title {
     max-width: 69%;
@@ -1485,9 +1490,6 @@ strong {
   .h6 {
     font-size: 34px;
   }
-  .headerMain {
-    margin-top: 20px;
-  }
   .headerPage__name {
     font-size: 40px;
     display: block;
@@ -1505,7 +1507,7 @@ strong {
     margin-top: 40px;
   }
   .headerPage__wrapImg {
-    top: 0 !important;
+    /* top: 0 !important; */
   }
   .headerPage-index .headerPage__wrapImg {
     width: 710px;
@@ -1604,7 +1606,7 @@ strong {
   }
   .titleSeparator {
     margin-top: 150px;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     align-items: center;
   }
   .titleSeparator__title {
