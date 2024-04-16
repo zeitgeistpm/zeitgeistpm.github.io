@@ -53,6 +53,23 @@ function eventDocClick(e) {
     targ = targ.parentNode
   }
 }
+const navLinks = document.querySelectorAll('.headerMain__menu__list a[href^="#"]')
+navLinks.forEach(link => {
+  link.addEventListener("click", function (e) {
+    e.preventDefault()
+
+    const targetId = this.getAttribute("href")
+    const targetSection = document.querySelector(targetId)
+    if (targetSection) {
+      const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - 150
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth"
+      })
+    }
+  })
+})
 
 var fnDelay = (function () {
   var timer = 0
